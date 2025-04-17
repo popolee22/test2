@@ -100,8 +100,8 @@ function prevAttraction() {
 
 function groupByCity() {
     attractions.sort((a, b) => {
-        const cityA = a.getElementsByTagName('City')[0].textContent;
-        const cityB = b.getElementsByTagName('City')[0].textContent;
+        const cityA = a.City || '';
+        const cityB = b.City || '';
         return cityA.localeCompare(cityB);
     });
     currentIndex = 0;
@@ -110,8 +110,8 @@ function groupByCity() {
 
 function groupByState() {
     attractions.sort((a, b) => {
-        const stateA = a.getElementsByTagName('State')[0].textContent;
-        const stateB = b.getElementsByTagName('State')[0].textContent;
+        const stateA = a.State || '';
+        const stateB = b.State || '';
         return stateA.localeCompare(stateB);
     });
     currentIndex = 0;
@@ -120,8 +120,8 @@ function groupByState() {
 
 function groupByCategory() {
     attractions.sort((a, b) => {
-        const categoryA = a.getElementsByTagName('Category')[0].textContent;
-        const categoryB = b.getElementsByTagName('Category')[0].textContent;
+        const categoryA = a.Category || '';
+        const categoryB = b.Category || '';
         return categoryA.localeCompare(categoryB);
     });
     currentIndex = 0;
