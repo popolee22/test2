@@ -38,7 +38,7 @@ function loadAttractions() {
         updatePositionIndicator();
     } catch (error) {
         console.error('Error loading attractions:', error);
-        document.getElementById('attraction-info').innerHTML = '<p>Error: Could not load attractions data - ' + error.message + '</p>';
+        document.getElementById('attraction-info').innerHTML = '<p>Error: Could not load attractions</p>';
     }
 }
 
@@ -52,12 +52,11 @@ function updatePositionIndicator() {
     }
 }
 
-function getElementTextContent(element, tagName) {
+function getElementTextContent(element, propertyName) {
     try {
-        const tag = element.getElementsByTagName(tagName)[0];
-        return tag ? tag.textContent : 'N/A';
+        return element[propertyName] || 'N/A';
     } catch (error) {
-        console.error(`Error getting ${tagName}:`, error);
+        console.error(`Error getting ${propertyName}:`, error);
         return 'N/A';
     }
 }
