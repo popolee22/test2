@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Attraction Records</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Attraction Records</h1>
+        </header>
+        <main>
+            <section id="attraction-info" aria-live="polite">
+                <p id="place-id" class="attraction-field"></p>
+                <p id="attraction-name" class="attraction-field"></p>
+                <!-- Add more fields as needed -->
+                <p id="attraction-city" class="attraction-field"></p>
+                <p id="attraction-state" class="attraction-field"></p>
+                <p id="attraction-category" class="attraction-field"></p>
+            </section>
+            <section id="navigation-controls">
+                <div id="navigation-buttons">
+                    <button onclick="prevAttraction()" aria-label="Previous attraction">Previous</button>
+                    <span id="position-indicator">1 of 10</span>
+                    <button onclick="nextAttraction()" aria-label="Next attraction">Next</button>
+                </div>
+                <div id="group-buttons">
+                    <button onclick="groupByCity()">Group by City</button>
+                    <button onclick="groupByState()">Group by State</button>
+                    <button onclick="groupByCategory()">Group by Category</button>
+                    <button onclick="resetGrouping()">Reset Grouping</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
