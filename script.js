@@ -1,57 +1,49 @@
 let attractions = [];
 let currentIndex = 0;
 
-// Load XML file using XMLHttpRequest
-const xhr = new XMLHttpRequest();
-xhr.open('GET', 'http://localhost:3000/attractions.xml', true);
-xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-            try {
-                if (!xhr.responseText || xhr.responseText.trim() === '') {
-                    throw new Error('Empty XML response');
-                }
-                const parser = new DOMParser();
-                const xmlDoc = parser.parseFromString(xhr.responseText, 'text/xml');
-                const parseError = xmlDoc.getElementsByTagName('parsererror');
-                if (parseError.length > 0) {
-                    throw new Error('XML parsing failed: ' + parseError[0].textContent);
-                }
-                attractions = Array.from(xmlDoc.getElementsByTagName('Attraction'));
-                if (attractions.length === 0) {
-                    throw new Error('No attractions found in XML');
-                }
-                displayAttraction(currentIndex);
-                updatePositionIndicator();
-            } catch (error) {
-                console.error('Error parsing XML:', error);
-                document.getElementById('attraction-info').innerHTML = '<p>Error: Could not parse attraction data - ' + error.message + '</p>';
-            }
-        } else {
-            console.error('Failed to load XML file');
-            document.getElementById('attraction-info').innerHTML = '<p>Error: Could not load attractions data</p>';
-        }
-    }
-};
-// Using static JSON data instead of XML for GitHub Pages compatibility
+// Using static JSON data
 const attractionsData = {
     "attractions": [
         {
-            "name": "Example Attraction",
-            "description": "This is a sample attraction"
+            "PlaceID": "1",
+            "Name": "Example Attraction",
+            "City": "Sample City",
+            "State": "Sample State",
+            "Category": "Sample Category",
+            "OpeningHours": "9AM-5PM",
+            "Price": "$10",
+            "Description": "This is a sample attraction"
+        },
+        {
+            "PlaceID": "2",
+            "Name": "Second Attraction",
+            "City": "Another City",
+            "State": "Another State",
+            "Category": "Another Category",
+            "OpeningHours": "10AM-6PM",
+            "Price": "$15",
+            "Description": "This is another sample attraction"
         }
     ]
 };
 
+// Load attractions from JSON data
 function loadAttractions() {
     try {
-        displayAttractions(attractionsData);
+        attractions = attractionsData.attractions;
+        if (attractions.length === 0) {
+            throw new Error('No attractions found in JSON data');
+        }
+        displayAttraction(currentIndex);
+        updatePositionIndicator();
     } catch (error) {
         console.error('Error loading attractions:', error);
-        document.getElementById('attraction-info').innerHTML = '<p>Error loading attractions data</p>';
+        document.getElementById('attraction-info').innerHTML = '<p>Error: Could not load attractions data - ' + error.message + '</p>';
     }
 }
-xhr.send();
+
+// Initialize on page load
+loadAttractions();
 
 function updatePositionIndicator() {
     const indicator = document.getElementById('position-indicator');
