@@ -33,11 +33,24 @@ xhr.onreadystatechange = function() {
         }
     }
 };
-xhr.onerror = function() {
-    console.error('Network error while loading XML file');
-    document.getElementById('attraction-info').innerHTML = '<p>Error: Network error while loading attractions. Please ensure the server is running and try again.</p>';
-    console.log('Try running: npm start in your terminal to start the server');
+// Using static JSON data instead of XML for GitHub Pages compatibility
+const attractionsData = {
+    "attractions": [
+        {
+            "name": "Example Attraction",
+            "description": "This is a sample attraction"
+        }
+    ]
 };
+
+function loadAttractions() {
+    try {
+        displayAttractions(attractionsData);
+    } catch (error) {
+        console.error('Error loading attractions:', error);
+        document.getElementById('attraction-info').innerHTML = '<p>Error loading attractions data</p>';
+    }
+}
 xhr.send();
 
 function updatePositionIndicator() {
